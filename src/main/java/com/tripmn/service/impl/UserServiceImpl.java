@@ -52,21 +52,30 @@ public class UserServiceImpl implements UserService {
 		logger.info("{}{}", "registering the user, registrationRequest :",
 				userRegistrationRequest.toString());
 
-		UserRegistrationResponse userRegistrationResponse = new UserRegistrationResponse();
+		UserRegistrationResponse response = new UserRegistrationResponse();
 		ValidationCheck validationCheck = validateUser(userRegistrationRequest);
 		if (validationCheck.isInvalid()) {
-			PlatformUtils.addError(userRegistrationResponse,
+			PlatformUtils.addError(response,
 					validationCheck.getErrorCode(),
 					validationCheck.getErroDescription());
-			return userRegistrationResponse;
+			return response;
 		}
 		User user = mapper.map(userRegistrationRequest, User.class);
 		user.setStatus(UserStatus.Unverified);
 		user = userRepository.makePersistent(user);
-		userRegistrationResponse.setUserId(user.getId());
-		userRegistrationResponse.setBalance(500L);
+		AccountCreationRequest accountCreationRequest = new AccountCreationRequest();
+		accountCreationRequest.setAccountType(AccountType.Token);
+		accountCreationRequest.setUserId(user.getId());
+		AccountCreationResponse accountCreationResponse = transactionService
+				.createAccount(accountCreationRequest);
+		if (!PlatformUtils.isSuccess(accountCreationResponse)) {
+			PlatformUtils.addError(response, accountCreationResponse);
+			return response;
+		}
+		response.setUserId(user.getId());
+		response.setBalance(500L);
 
-		return userRegistrationResponse;
+		return response;
 	}
 
 	@Override
@@ -94,15 +103,6 @@ public class UserServiceImpl implements UserService {
 
 		if (response.isAuthenticated()) {
 			user.setStatus(UserStatus.Active);
-			AccountCreationRequest accountCreationRequest = new AccountCreationRequest();
-			accountCreationRequest.setAccountType(AccountType.Token);
-			accountCreationRequest.setUserId(user.getId());
-			AccountCreationResponse accountCreationResponse = transactionService
-					.createAccount(accountCreationRequest);
-			if (!PlatformUtils.isSuccess(accountCreationResponse)) {
-				PlatformUtils.addError(response, accountCreationResponse);
-				return response;
-			}
 			userRepository.merge(user);
 		}
 		return response;
