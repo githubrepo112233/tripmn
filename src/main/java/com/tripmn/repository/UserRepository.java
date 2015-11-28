@@ -13,5 +13,6 @@ public interface UserRepository extends Repository<User, Long>,
 	public User findByEmailId(String emailId);
 	public User findByMobileNumber(String mobileNumber);
 	public List<User> findByUserType(UserType userType);
+	public User findByUserName(String userName);
 
 }
