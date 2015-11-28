@@ -110,8 +110,9 @@ public class BiddingServiceImpl implements BiddingService {
 			return response;
 		}
 		if(biddingExpirySeconds <= 5){
-			itemBidding.setEndDate(DateUtils.addSeconds(itemBidding.getEndDate(), 15));
-			itemBidding.setGraceSeconds(itemBidding.getGraceSeconds() + 15);
+			int graceSeconds = (int)(15 - biddingExpirySeconds);
+			itemBidding.setEndDate(DateUtils.addSeconds(itemBidding.getEndDate(), graceSeconds));
+			itemBidding.setGraceSeconds(itemBidding.getGraceSeconds() + graceSeconds);
 		}
 		itemBidding.setBiddingTokens(itemBidding.getBiddingTokens() + txnRequest.getAmount());
 		itemBidding.setWinningUser(user);
