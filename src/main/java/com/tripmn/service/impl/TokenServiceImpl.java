@@ -35,6 +35,7 @@ public class TokenServiceImpl implements TokenService {
 		List<Token> tokenEntityList = (List<Token>) tokenRepository.findAll();
 		for (Token token : tokenEntityList) {
 			TokenDTO tokenDTO = mapper.map(token, TokenDTO.class);
+			tokenDTO.setExpirtyDate(PlatformUtils.formatDate(token.getExpirtyDate(), "yyyy-mm-dd HH:mm:ss"));
 			tokenList.add(tokenDTO);
 		}
 

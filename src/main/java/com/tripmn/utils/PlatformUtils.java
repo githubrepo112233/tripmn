@@ -1,5 +1,6 @@
 package com.tripmn.utils;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.tripmn.dto.BaseResponse;
@@ -34,5 +35,10 @@ public class PlatformUtils {
 	
 	public static long dateDiffSeconds(Date startDate, Date endDate){
 		return (endDate.getTime() - startDate.getTime()) / 1000;
+	}
+	
+	public static String formatDate(Date date, String format){
+		SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+		return dateFormat.format(date);
 	}
 }

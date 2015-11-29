@@ -1,7 +1,6 @@
 package com.tripmn.dto;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class TokenDTO implements Serializable {
 
@@ -13,7 +12,7 @@ public class TokenDTO implements Serializable {
 	
 	private long amount;
 
-	private Date expirtyDate;
+	private String expirtyDate;
 
 	private String status;
 
@@ -41,11 +40,11 @@ public class TokenDTO implements Serializable {
 		this.amount = amount;
 	}
 
-	public Date getExpirtyDate() {
+	public String getExpirtyDate() {
 		return expirtyDate;
 	}
 
-	public void setExpirtyDate(Date expirtyDate) {
+	public void setExpirtyDate(String expirtyDate) {
 		this.expirtyDate = expirtyDate;
 	}
 
