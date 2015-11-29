@@ -12,6 +12,8 @@ import com.tripmn.dto.FetchItemsResponse;
 import com.tripmn.dto.FetchTokensResponse;
 import com.tripmn.dto.UserFetchProfileRequest;
 import com.tripmn.dto.UserFetchProfileResponse;
+import com.tripmn.dto.UserProfileUpdateRequest;
+import com.tripmn.dto.UserProfileUpdateResponse;
 import com.tripmn.dto.UserRegistrationRequest;
 import com.tripmn.dto.UserRegistrationResponse;
 import com.tripmn.service.ItemService;
@@ -59,5 +61,12 @@ public class UserController {
 			@RequestBody UserFetchProfileRequest userFetchProfileRequest) {
 
 		return userService.fetchProfile(userFetchProfileRequest);
+	}
+	
+	@RequestMapping("/updateProfile")
+	public @ResponseBody UserProfileUpdateResponse updateProfile(
+			@RequestBody UserProfileUpdateRequest userProfileUpdateRequest) {
+
+		return userService.updateProfile(userProfileUpdateRequest);
 	}
 }
