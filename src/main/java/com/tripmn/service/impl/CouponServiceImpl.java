@@ -2,14 +2,11 @@ package com.tripmn.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.tripmn.constants.PlatformConstants;
 import com.tripmn.dto.CouponDTO;
-import com.tripmn.dto.FetchCouponRequest;
 import com.tripmn.dto.FetchCouponResponse;
 import com.tripmn.entity.Coupon;
 import com.tripmn.enums.CouponServiceMessage;
