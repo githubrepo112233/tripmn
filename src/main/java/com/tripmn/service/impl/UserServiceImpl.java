@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
 			return response;
 		}
 		response.setUserId(user.getId());
-		response.setBalance(500L);
+		response.setBalance(5L);
 
 		return response;
 	}
