@@ -12,9 +12,12 @@ import com.tripmn.dto.AccountCreationRequest;
 import com.tripmn.dto.AccountCreationResponse;
 import com.tripmn.dto.AuthenticationRequest;
 import com.tripmn.dto.AuthenticationResponse;
+import com.tripmn.dto.UserFetchProfileRequest;
+import com.tripmn.dto.UserFetchProfileResponse;
 import com.tripmn.dto.UserRegistrationRequest;
 import com.tripmn.dto.UserRegistrationResponse;
 import com.tripmn.dto.ValidationCheck;
+import com.tripmn.entity.Account;
 import com.tripmn.entity.User;
 import com.tripmn.enums.AccountType;
 import com.tripmn.enums.UserServiceMessage;
@@ -108,6 +111,41 @@ public class UserServiceImpl implements UserService {
 		}
 		return response;
 	}
+	
+	@Override
+	@Transactional
+	public UserFetchProfileResponse fetchProfile(
+			UserFetchProfileRequest userFetchProfileRequest) {
+
+		UserFetchProfileResponse response = new UserFetchProfileResponse();
+		
+		Long userId=Long.parseLong(userFetchProfileRequest.getUserId());
+		
+		if(userId==null){
+			PlatformUtils.addError(response, UserServiceMessage.USER_ID_REQUIRED);
+			return response;
+		}else{
+			User userProfile=userRepository.findOne(userId);
+			Account userAccount=accountRepository.findByUserAndAccountType(userProfile,AccountType.Token);
+			if(userProfile==null){
+				PlatformUtils.addError(response, UserServiceMessage.INVALID_USER_ID);
+				return response;
+			}else{
+				response.setUserName(userProfile.getUserName());
+				response.setEmailId(userProfile.getEmailId());
+				response.setMobileNumber(Long.parseLong(userProfile.getMobileNumber()));
+				response.setImage(null);
+				response.setAddress(userProfile.getAddress());
+				response.setStatus(userProfile.getStatus());
+				response.setUserType(userProfile.getUserType());
+				response.setAvailableBalance(userAccount.getAvailableBalance());
+				response.setCumulativeBalance(userAccount.getCumulativeBalance());
+			}
+		}
+		
+		return response;
+	}
+
 	
 	private ValidationCheck validateUser(UserRegistrationRequest userRegistrationRequest){
 		
