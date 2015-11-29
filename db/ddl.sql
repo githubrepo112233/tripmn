@@ -146,4 +146,9 @@ insert into ItemBidding select 1, now(), 1, now(), 1, 1, 0, now() + interval 10 
 alter table User auto_increment = 4221;
 alter table Account auto_increment = 4221;
 
+insert into Coupon select 3567, now(), 1, now(), 1, 1, 100, "NVKCMR0984", "CMRKITCHEN", NOW() + INTERVAL 1 YEAR, 0;
+insert into Coupon select 3568, now(), 1, now(), 1, 1, 100, "NVKCMR0989", "PIZZAHUT", NOW() + INTERVAL 1 YEAR, 0;
+insert into Coupon select 3569, now(), 1, now(), 1, 1, 100, "NVKCMR9789", "FREECHARGE", NOW() + INTERVAL 1 YEAR, 0;
+insert into Coupon select 3570, now(), 1, now(), 1, 1, 100, "NVKCMR9799", "FREECHARGE", NOW() + INTERVAL 1 YEAR, 0;
+
 
