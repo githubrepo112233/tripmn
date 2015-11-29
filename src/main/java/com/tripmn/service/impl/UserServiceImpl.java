@@ -156,16 +156,22 @@ public class UserServiceImpl implements UserService {
 			validationCheck.setErroDescription(UserServiceMessage.INVALID_USER_TYPE.getDescription());
 		}else{
 			try{
-				User user = userRepository.findByMobileNumber(userRegistrationRequest.getMobileNumber());
-				if(user != null && !validationCheck.isInvalid()){
+				User userMobObj = userRepository.findByMobileNumber(userRegistrationRequest.getMobileNumber());
+				User userEmailObj = userRepository.findByEmailId(userRegistrationRequest.getMobileNumber());
+				User userNameObj = userRepository.findByUserName(userRegistrationRequest.getMobileNumber());
+				if(userMobObj != null && userEmailObj != null && userNameObj!=null && !validationCheck.isInvalid()){
+					validationCheck.setInvalid(true);
+					validationCheck.setErrorCode(UserServiceMessage.USER_ALREADY_REGISTERED.getCode());
+					validationCheck.setErroDescription(UserServiceMessage.USER_ALREADY_REGISTERED.getDescription());
+				}else if(userMobObj != null && !validationCheck.isInvalid()){
 					validationCheck.setInvalid(true);
 					validationCheck.setErrorCode(UserServiceMessage.DUPLICATE_MOBILE_NUMBER.getCode());
 					validationCheck.setErroDescription(UserServiceMessage.DUPLICATE_MOBILE_NUMBER.getDescription());
-				}else if(userRepository.findByUserName(userRegistrationRequest.getUserName())!=null && !validationCheck.isInvalid()){
+				}else if(userEmailObj!=null && !validationCheck.isInvalid()){
 					validationCheck.setInvalid(true);
 					validationCheck.setErrorCode(UserServiceMessage.DUPLICATE_USER_NAME.getCode());
 					validationCheck.setErroDescription(UserServiceMessage.DUPLICATE_USER_NAME.getDescription());
-				}else if(userRepository.findByEmailId(userRegistrationRequest.getEmailId())!=null && !validationCheck.isInvalid()){
+				}else if(userNameObj!=null && !validationCheck.isInvalid()){
 					validationCheck.setInvalid(true);
 					validationCheck.setErrorCode(UserServiceMessage.DUPLICATE_EMAIL.getCode());
 					validationCheck.setErroDescription(UserServiceMessage.DUPLICATE_EMAIL.getDescription());
