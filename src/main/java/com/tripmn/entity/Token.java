@@ -22,7 +22,7 @@ public class Token extends BaseEntity {
 
 	private long amount;
 
-	private Date expirtyDate;
+	private Date expiryDate;
 
 	private TokenStatus status;
 
@@ -50,12 +50,12 @@ public class Token extends BaseEntity {
 		this.amount = amount;
 	}
 
-	public Date getExpirtyDate() {
-		return expirtyDate;
+	public Date getExpiryDate() {
+		return expiryDate;
 	}
 
-	public void setExpirtyDate(Date expirtyDate) {
-		this.expirtyDate = expirtyDate;
+	public void setExpiryDate(Date expiryDate) {
+		this.expiryDate = expiryDate;
 	}
 
 	public TokenStatus getStatus() {

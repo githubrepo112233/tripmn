@@ -12,7 +12,7 @@ public class TokenDTO implements Serializable {
 	
 	private long amount;
 
-	private String expirtyDate;
+	private String expiryDate;
 
 	private String status;
 
@@ -40,12 +40,12 @@ public class TokenDTO implements Serializable {
 		this.amount = amount;
 	}
 
-	public String getExpirtyDate() {
-		return expirtyDate;
+	public String getExpiryDate() {
+		return expiryDate;
 	}
 
-	public void setExpirtyDate(String expirtyDate) {
-		this.expirtyDate = expirtyDate;
+	public void setExpiryDate(String expiryDate) {
+		this.expiryDate = expiryDate;
 	}
 
 	public String getStatus() {
