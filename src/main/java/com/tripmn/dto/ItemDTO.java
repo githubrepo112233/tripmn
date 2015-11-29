@@ -17,7 +17,7 @@ public class ItemDTO implements Serializable {
 
 	private long price;
 
-	private Date endDate;
+	private String endDate;
 
 	private String imagePath;
 
@@ -65,11 +65,11 @@ public class ItemDTO implements Serializable {
 		this.price = price;
 	}
 
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 

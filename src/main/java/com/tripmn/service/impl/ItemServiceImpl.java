@@ -33,6 +33,7 @@ public class ItemServiceImpl implements ItemService{
 		List<Item> itemEntityList = (List<Item>) itemRepository.findAll();
 		for (Item item : itemEntityList) {
 			ItemDTO itemDTO = mapper.map(item, ItemDTO.class);
+			itemDTO.setEndDate(PlatformUtils.formatDate(item.getEndDate(), "yyyy-MM-dd HH:mm:ss"));
 			itemList.add(itemDTO);
 		}
 		
