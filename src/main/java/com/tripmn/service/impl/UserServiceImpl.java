@@ -1,5 +1,6 @@
 package com.tripmn.service.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,9 +13,14 @@ import com.tripmn.dto.AccountCreationRequest;
 import com.tripmn.dto.AccountCreationResponse;
 import com.tripmn.dto.AuthenticationRequest;
 import com.tripmn.dto.AuthenticationResponse;
+import com.tripmn.dto.UserFetchProfileRequest;
+import com.tripmn.dto.UserFetchProfileResponse;
+import com.tripmn.dto.UserProfileUpdateRequest;
+import com.tripmn.dto.UserProfileUpdateResponse;
 import com.tripmn.dto.UserRegistrationRequest;
 import com.tripmn.dto.UserRegistrationResponse;
 import com.tripmn.dto.ValidationCheck;
+import com.tripmn.entity.Account;
 import com.tripmn.entity.User;
 import com.tripmn.enums.AccountType;
 import com.tripmn.enums.UserServiceMessage;
@@ -108,6 +114,78 @@ public class UserServiceImpl implements UserService {
 		}
 		return response;
 	}
+	
+	@Override
+	@Transactional
+	public UserFetchProfileResponse fetchProfile(
+			UserFetchProfileRequest userFetchProfileRequest) {
+
+		UserFetchProfileResponse response = new UserFetchProfileResponse();
+		
+		Long userId=Long.parseLong(userFetchProfileRequest.getUserId());
+		
+		if(userId==null){
+			PlatformUtils.addError(response, UserServiceMessage.USER_ID_REQUIRED);
+			return response;
+		}else{
+			User userProfile=userRepository.findOne(userId);
+			Account userAccount=accountRepository.findByUserAndAccountType(userProfile,AccountType.Token);
+			if(userProfile==null){
+				PlatformUtils.addError(response, UserServiceMessage.INVALID_USER_ID);
+				return response;
+			}else{
+				response.setUserName(userProfile.getUserName());
+				response.setEmailId(userProfile.getEmailId());
+				response.setMobileNumber(Long.parseLong(userProfile.getMobileNumber()));
+				response.setImage(null);
+				response.setAddress(userProfile.getAddress());
+				response.setStatus(userProfile.getStatus());
+				response.setUserType(userProfile.getUserType());
+				response.setAvailableBalance(userAccount.getAvailableBalance());
+				response.setCumulativeBalance(userAccount.getCumulativeBalance());
+			}
+		}
+		
+		return response;
+	}
+
+	@Override
+	@Transactional
+	public UserProfileUpdateResponse updateProfile(
+			UserProfileUpdateRequest userProfileUpdateRequest) {
+
+		UserProfileUpdateResponse response = new UserProfileUpdateResponse();
+		
+		Long userId=Long.parseLong(userProfileUpdateRequest.getUserId());
+		String address=userProfileUpdateRequest.getAddress();
+		String image=userProfileUpdateRequest.getImage();
+		
+		if(userId==null){
+			PlatformUtils.addError(response, UserServiceMessage.USER_ID_REQUIRED);
+			return response;
+		}else{
+			User userProfile=userRepository.findOne(userId);
+			if(userProfile==null){
+				PlatformUtils.addError(response, UserServiceMessage.INVALID_USER_ID);
+				return response;
+			}else{
+				if(address==null && image==null){
+					PlatformUtils.addError(response, UserServiceMessage.UPDATE_PROFILE_DETAILS_REQUIRED);
+					return response;
+				}else{
+					User user=userRepository.findById(userId,true);
+					if(!StringUtils.isBlank(address))
+						user.setAddress(address);
+					if(StringUtils.isBlank(image))
+						user.setImage(null);
+					userRepository.merge(user);
+				}
+			}
+		}
+		
+		return response;
+	}
+
 	
 	private ValidationCheck validateUser(UserRegistrationRequest userRegistrationRequest){
 		
