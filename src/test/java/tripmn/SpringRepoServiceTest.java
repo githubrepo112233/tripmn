@@ -1,4 +1,4 @@
-package bidmanza;
+package tripmn;
 
 import com.tripmn.repository.UserRepository;
 
