@@ -157,8 +157,8 @@ public class UserServiceImpl implements UserService {
 		}else{
 			try{
 				User userMobObj = userRepository.findByMobileNumber(userRegistrationRequest.getMobileNumber());
-				User userEmailObj = userRepository.findByEmailId(userRegistrationRequest.getMobileNumber());
-				User userNameObj = userRepository.findByUserName(userRegistrationRequest.getMobileNumber());
+				User userEmailObj = userRepository.findByEmailId(userRegistrationRequest.getEmailId());
+				User userNameObj = userRepository.findByUserName(userRegistrationRequest.getUserName());
 				if(userMobObj != null && userEmailObj != null && userNameObj!=null && !validationCheck.isInvalid()){
 					validationCheck.setInvalid(true);
 					validationCheck.setErrorCode(UserServiceMessage.USER_ALREADY_REGISTERED.getCode());
