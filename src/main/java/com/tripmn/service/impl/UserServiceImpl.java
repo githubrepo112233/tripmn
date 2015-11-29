@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.tripmn.constants.PlatformConstants;
 import com.tripmn.dto.AccountCreationRequest;
 import com.tripmn.dto.AccountCreationResponse;
 import com.tripmn.dto.AuthenticationRequest;
@@ -66,6 +68,7 @@ public class UserServiceImpl implements UserService {
 		AccountCreationRequest accountCreationRequest = new AccountCreationRequest();
 		accountCreationRequest.setAccountType(AccountType.Token);
 		accountCreationRequest.setUserId(user.getId());
+		accountCreationRequest.setInitialBalance(PlatformConstants.DEFAULT_TOKEN_ACCOUNT_BALANCE);
 		AccountCreationResponse accountCreationResponse = transactionService
 				.createAccount(accountCreationRequest);
 		if (!PlatformUtils.isSuccess(accountCreationResponse)) {
