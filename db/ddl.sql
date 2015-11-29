@@ -139,9 +139,11 @@ values(now(), 1, now(), 1, 1, "Laptop", "Laptop", 'HP', 3500000, '2016-01-01', n
        (now(), 1, now(), 1, 1, "Camera", "Camera", 'Cannon', 3500000, '2016-01-01', null, '', '', true, 1),
        (now(), 1, now(), 1, 1, "Laptop", "Laptop", 'HP', 3500000, '2016-01-01', null, '', '', true, 1);
 	   
-insert into Token(creationTime, creatorId, modifiedTime, modifierId, version, tokenQuantity, amount, expirtyDate, status)
+insert into Token(creationTime, creatorId, modifiedTime, modifierId, version, tokenQuantity, amount, expiryDate, status)
 values(now(), 1, now(), 1, 1, 10, 1000, '2016-01-01', 0),
        (now(), 1, now(), 1, 1, 100, 10000, '2016-01-01', 0);
 insert into ItemBidding select 1, now(), 1, now(), 1, 1, 0, now() + interval 10 day, 0, 0, 0, 1, null;
+alter table User auto_increment = 4221;
+alter table Account auto_increment = 4221;
 
 
