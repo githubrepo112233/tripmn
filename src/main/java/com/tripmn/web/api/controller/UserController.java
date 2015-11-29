@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tripmn.dto.AuthenticationRequest;
 import com.tripmn.dto.AuthenticationResponse;
+import com.tripmn.dto.FetchCouponResponse;
 import com.tripmn.dto.FetchItemsResponse;
 import com.tripmn.dto.FetchTokensResponse;
 import com.tripmn.dto.UserFetchProfileRequest;
@@ -16,6 +17,7 @@ import com.tripmn.dto.UserProfileUpdateRequest;
 import com.tripmn.dto.UserProfileUpdateResponse;
 import com.tripmn.dto.UserRegistrationRequest;
 import com.tripmn.dto.UserRegistrationResponse;
+import com.tripmn.service.CouponService;
 import com.tripmn.service.ItemService;
 import com.tripmn.service.TokenService;
 import com.tripmn.service.UserService;
@@ -31,6 +33,9 @@ public class UserController {
 	
 	@Autowired
 	private ItemService itemService;
+	
+	@Autowired
+	private CouponService couponService;
 
 	@RequestMapping("/registerUser")
 	public @ResponseBody UserRegistrationResponse registerUser(
@@ -68,5 +73,10 @@ public class UserController {
 			@RequestBody UserProfileUpdateRequest userProfileUpdateRequest) {
 
 		return userService.updateProfile(userProfileUpdateRequest);
+	}
+	
+	@RequestMapping("/fetchCoupons")
+	public @ResponseBody FetchCouponResponse fetchCoupons() {
+		return couponService.fetchAllCoupons();
 	}
 }

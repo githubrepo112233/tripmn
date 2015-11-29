@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "CouponResponse", propOrder = { "couponList" }, namespace = "http://www.tripmn.com")
 @JsonInclude(value=Include.NON_NULL)
-public class CouponResponse extends BaseResponse {
+public class FetchCouponResponse extends BaseResponse {
 
 	private static final long serialVersionUID = 1L;
 	
