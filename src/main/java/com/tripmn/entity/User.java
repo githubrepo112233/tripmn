@@ -27,6 +27,7 @@ public class User extends BaseEntity {
 	private UserType userType;
 	private UserStatus status;
 	private File image;
+	private String address;
 
 	public long getId() {
 		return id;
@@ -106,5 +107,13 @@ public class User extends BaseEntity {
 
 	public void setImage(File image) {
 		this.image = image;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 }
