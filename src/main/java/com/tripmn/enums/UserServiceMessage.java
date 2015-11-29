@@ -23,7 +23,8 @@ public enum UserServiceMessage implements PlatformErrorInterface {
 	INVALID_OTP(700202, "INVALID_OTP", "Invalid OTP."),
 	USER_ID_REQUIRED(700203, "USER_ID_REQUIRED", "User Id not available in the request."),
 	INVALID_USER_ID(700204, "INVALID_USER_ID", "Invalid userId in the request."),
-	USER_NOT_ACTIVE(700204, "USER_NOT_ACTIVE", "User is not active");
+	USER_NOT_ACTIVE(700204, "USER_NOT_ACTIVE", "User is not active."),
+	UPDATE_PROFILE_DETAILS_REQUIRED(700601, "UPDATE_PROFILE_DETAILS_REQUIRED", "No details found to update.");
 	
 	private int code;
 	private String strCode;

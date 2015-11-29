@@ -1,5 +1,6 @@
 package com.tripmn.service.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,8 @@ import com.tripmn.dto.AuthenticationRequest;
 import com.tripmn.dto.AuthenticationResponse;
 import com.tripmn.dto.UserFetchProfileRequest;
 import com.tripmn.dto.UserFetchProfileResponse;
+import com.tripmn.dto.UserProfileUpdateRequest;
+import com.tripmn.dto.UserProfileUpdateResponse;
 import com.tripmn.dto.UserRegistrationRequest;
 import com.tripmn.dto.UserRegistrationResponse;
 import com.tripmn.dto.ValidationCheck;
@@ -140,6 +143,43 @@ public class UserServiceImpl implements UserService {
 				response.setUserType(userProfile.getUserType());
 				response.setAvailableBalance(userAccount.getAvailableBalance());
 				response.setCumulativeBalance(userAccount.getCumulativeBalance());
+			}
+		}
+		
+		return response;
+	}
+
+	@Override
+	@Transactional
+	public UserProfileUpdateResponse updateProfile(
+			UserProfileUpdateRequest userProfileUpdateRequest) {
+
+		UserProfileUpdateResponse response = new UserProfileUpdateResponse();
+		
+		Long userId=Long.parseLong(userProfileUpdateRequest.getUserId());
+		String address=userProfileUpdateRequest.getAddress();
+		String image=userProfileUpdateRequest.getImage();
+		
+		if(userId==null){
+			PlatformUtils.addError(response, UserServiceMessage.USER_ID_REQUIRED);
+			return response;
+		}else{
+			User userProfile=userRepository.findOne(userId);
+			if(userProfile==null){
+				PlatformUtils.addError(response, UserServiceMessage.INVALID_USER_ID);
+				return response;
+			}else{
+				if(address==null && image==null){
+					PlatformUtils.addError(response, UserServiceMessage.UPDATE_PROFILE_DETAILS_REQUIRED);
+					return response;
+				}else{
+					User user=userRepository.findById(userId,true);
+					if(!StringUtils.isBlank(address))
+						user.setAddress(address);
+					if(StringUtils.isBlank(image))
+						user.setImage(null);
+					userRepository.merge(user);
+				}
 			}
 		}
 		
