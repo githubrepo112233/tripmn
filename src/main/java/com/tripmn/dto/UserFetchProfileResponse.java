@@ -3,8 +3,11 @@ package com.tripmn.dto;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.tripmn.enums.UserStatus;
+import com.tripmn.enums.UserType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "UserFetchProfileResponse", propOrder = { "userName", "emailId", "mobileNumber",
@@ -13,25 +16,26 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class UserFetchProfileResponse extends BaseResponse {
 
 	private static final long serialVersionUID = 1L;
-	private long userName;
-	private long emailId;
+	private String userName;
+	private String emailId;
 	private long mobileNumber;
-	private long image;
-	private long address;
-	private long status;
-	private long userType;
+	private String image;
+	private String address;
+	private UserStatus status;
+	private UserType userType;
 	private long availableBalance;
 	private long cumulativeBalance;
-	public long getUserName() {
+	
+	public String getUserName() {
 		return userName;
 	}
-	public void setUserName(long userName) {
+	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public long getEmailId() {
+	public String getEmailId() {
 		return emailId;
 	}
-	public void setEmailId(long emailId) {
+	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
 	public long getMobileNumber() {
@@ -40,28 +44,28 @@ public class UserFetchProfileResponse extends BaseResponse {
 	public void setMobileNumber(long mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
-	public long getImage() {
+	public String getImage() {
 		return image;
 	}
-	public void setImage(long image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
-	public long getAddress() {
+	public String getAddress() {
 		return address;
 	}
-	public void setAddress(long address) {
+	public void setAddress(String address) {
 		this.address = address;
 	}
-	public long getStatus() {
+	public UserStatus getStatus() {
 		return status;
 	}
-	public void setStatus(long status) {
+	public void setStatus(UserStatus status) {
 		this.status = status;
 	}
-	public long getUserType() {
+	public UserType getUserType() {
 		return userType;
 	}
-	public void setUserType(long userType) {
+	public void setUserType(UserType userType) {
 		this.userType = userType;
 	}
 	public long getAvailableBalance() {
@@ -79,5 +83,5 @@ public class UserFetchProfileResponse extends BaseResponse {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
+	
 }
