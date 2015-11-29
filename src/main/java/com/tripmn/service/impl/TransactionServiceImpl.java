@@ -57,7 +57,7 @@ public class TransactionServiceImpl implements TransactionService {
 		
 		Account account = null;
 		if(transactionRequest.getAccountId() > 0){
-			accountRepository.findById(transactionRequest.getAccountId(), true);
+			account = accountRepository.findById(transactionRequest.getAccountId(), true);
 		}
 		else{
 			account = transaction.getAccount();
@@ -161,8 +161,7 @@ public class TransactionServiceImpl implements TransactionService {
 
 		User user = userRepository.findOne(accountCreationRequest.getUserId());
 		if (user == null) {
-			PlatformUtils
-					.addError(response, UserServiceMessage.INVALID_USER_ID);
+			PlatformUtils.addError(response, UserServiceMessage.INVALID_USER_ID);
 			return response;
 		}
 
@@ -180,9 +179,14 @@ public class TransactionServiceImpl implements TransactionService {
 		txnRequest.setUserId(account.getUser().getId());
 		txnRequest.setTxnStatus(TxnStatus.Success);
 		txnRequest.setSettleType((short)3);
-		credit(txnRequest);
+		TransactionResponse txnResponse = credit(txnRequest);
+		if(!PlatformUtils.isSuccess(txnResponse)){
+			PlatformUtils.addError(response, txnResponse);
+		}
+		account = accountRepository.findById(account.getId(), true);
 		response.setAccountId(account.getId());
 		response.setStatus(account.getStatus());
+		response.setAvailableBalance(account.getAvailableBalance());
 
 		return response;
 	}

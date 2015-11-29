@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
 			return response;
 		}
 		response.setUserId(user.getId());
-		response.setBalance(5L);
+		response.setBalance(accountCreationResponse.getAvailableBalance());
 
 		return response;
 	}

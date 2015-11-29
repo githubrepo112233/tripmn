@@ -8,6 +8,7 @@ public class AccountCreationResponse extends BaseResponse {
 
 	private long accountId;
 	private AccountStatus status;
+	private long availableBalance;
 
 	public long getAccountId() {
 		return accountId;
@@ -25,4 +26,11 @@ public class AccountCreationResponse extends BaseResponse {
 		this.status = status;
 	}
 
+	public long getAvailableBalance() {
+		return availableBalance;
+	}
+
+	public void setAvailableBalance(long availableBalance) {
+		this.availableBalance = availableBalance;
+	}
 }
