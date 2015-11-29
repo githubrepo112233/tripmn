@@ -172,7 +172,15 @@ public class TransactionServiceImpl implements TransactionService {
 		account.setStatus(AccountStatus.Active);
 
 		account = accountRepository.makePersistent(account);
-
+		TransactionRequest txnRequest = new TransactionRequest();
+		txnRequest.setAccountId(account.getId());
+		txnRequest.setAmount(accountCreationRequest.getInitialBalance());
+		txnRequest.setComments("Intial credit");
+		txnRequest.setCrDrInd((short) 1);
+		txnRequest.setUserId(account.getUser().getId());
+		txnRequest.setTxnStatus(TxnStatus.Success);
+		txnRequest.setSettleType((short)3);
+		credit(txnRequest);
 		response.setAccountId(account.getId());
 		response.setStatus(account.getStatus());
 

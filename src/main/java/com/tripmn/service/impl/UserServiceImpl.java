@@ -86,8 +86,7 @@ public class UserServiceImpl implements UserService {
 		AuthenticationResponse response = new AuthenticationResponse();
 
 		if (!userRepository.exists(authenticationRequest.getUserId())) {
-			PlatformUtils
-					.addError(response, UserServiceMessage.INVALID_USER_ID);
+			PlatformUtils.addError(response, UserServiceMessage.INVALID_USER_ID);
 			return response;
 		}
 
@@ -95,8 +94,7 @@ public class UserServiceImpl implements UserService {
 				true);
 
 		if (user == null) {
-			PlatformUtils
-					.addError(response, UserServiceMessage.INVALID_USER_ID);
+			PlatformUtils.addError(response, UserServiceMessage.INVALID_USER_ID);
 			return response;
 		}
 		response = authenticationHandler.authenticate(authenticationRequest);

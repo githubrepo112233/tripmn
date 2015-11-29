@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tripmn.constants.PlatformConstants;
 import com.tripmn.dto.FetchItemsResponse;
 import com.tripmn.dto.ItemDTO;
 import com.tripmn.entity.Item;
@@ -33,7 +34,7 @@ public class ItemServiceImpl implements ItemService{
 		List<Item> itemEntityList = (List<Item>) itemRepository.findAll();
 		for (Item item : itemEntityList) {
 			ItemDTO itemDTO = mapper.map(item, ItemDTO.class);
-			itemDTO.setEndDate(PlatformUtils.formatDate(item.getEndDate(), "yyyy-MM-dd HH:mm:ss"));
+			itemDTO.setEndDate(PlatformUtils.formatDate(item.getEndDate(), PlatformConstants.DEFAULT_DATE_FORMAT));
 			itemList.add(itemDTO);
 		}
 		

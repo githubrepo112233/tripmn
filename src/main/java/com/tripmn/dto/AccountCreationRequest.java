@@ -8,7 +8,8 @@ public class AccountCreationRequest extends BaseRequest {
 
 	private long userId;
 	private AccountType accountType;
-
+	private long initialBalance;
+	
 	public long getUserId() {
 		return userId;
 	}
@@ -23,6 +24,14 @@ public class AccountCreationRequest extends BaseRequest {
 
 	public void setAccountType(AccountType accountType) {
 		this.accountType = accountType;
+	}
+
+	public long getInitialBalance() {
+		return initialBalance;
+	}
+
+	public void setInitialBalance(long initialBalance) {
+		this.initialBalance = initialBalance;
 	}
 
 }

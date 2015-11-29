@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tripmn.constants.PlatformConstants;
 import com.tripmn.dto.FetchTokensResponse;
 import com.tripmn.dto.TokenDTO;
 import com.tripmn.entity.Token;
@@ -35,7 +36,7 @@ public class TokenServiceImpl implements TokenService {
 		List<Token> tokenEntityList = (List<Token>) tokenRepository.findAll();
 		for (Token token : tokenEntityList) {
 			TokenDTO tokenDTO = mapper.map(token, TokenDTO.class);
-			tokenDTO.setExpiryDate(PlatformUtils.formatDate(token.getExpiryDate(), "yyyy-MM-dd HH:mm:ss"));
+			tokenDTO.setExpiryDate(PlatformUtils.formatDate(token.getExpiryDate(), PlatformConstants.DEFAULT_DATE_FORMAT));
 			tokenList.add(tokenDTO);
 		}
 
