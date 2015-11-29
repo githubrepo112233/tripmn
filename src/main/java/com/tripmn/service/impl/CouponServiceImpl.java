@@ -2,9 +2,12 @@ package com.tripmn.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.tripmn.constants.PlatformConstants;
 import com.tripmn.dto.CouponDTO;
 import com.tripmn.dto.FetchCouponResponse;
@@ -14,6 +17,7 @@ import com.tripmn.repository.CouponRepository;
 import com.tripmn.service.CouponService;
 import com.tripmn.utils.PlatformUtils;
 
+@Service("couponService")
 public class CouponServiceImpl implements CouponService {
 	
 	@Autowired
