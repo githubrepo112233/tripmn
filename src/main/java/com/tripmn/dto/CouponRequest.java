@@ -8,20 +8,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "UserFetchProfileRequest", propOrder = { "userId"}, namespace = "http://www.tripmn.com")
+@XmlType(name = "CouponRequest", propOrder = {}, namespace = "http://www.tripmn.com")
 @JsonInclude(value=Include.NON_NULL)
-public class UserFetchProfileRequest extends BaseRequest {
+public class CouponRequest extends BaseRequest {
 
 	private static final long serialVersionUID = 1L;
 
-	private String userId;
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	
  }

@@ -26,10 +26,6 @@ public class UserProfileUpdateRequest extends BaseRequest {
 		this.userId = userId;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	public String getImage() {
 		return image;
 	}
