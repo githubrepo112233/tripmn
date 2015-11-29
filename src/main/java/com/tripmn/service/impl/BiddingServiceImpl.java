@@ -22,6 +22,7 @@ import com.tripmn.enums.PlatformMessage;
 import com.tripmn.enums.TransactionServiceMessage;
 import com.tripmn.enums.TxnStatus;
 import com.tripmn.enums.UserServiceMessage;
+import com.tripmn.enums.UserStatus;
 import com.tripmn.repository.AccountRepository;
 import com.tripmn.repository.ItemBiddingRepository;
 import com.tripmn.repository.ItemRepository;
@@ -89,6 +90,10 @@ public class BiddingServiceImpl implements BiddingService {
 		User user = userRepository.findById(biddingRequest.getUserId(), true);
 		if(user == null){
 			PlatformUtils.addError(response, UserServiceMessage.INVALID_USER_ID);
+			return response;
+		}
+		if(!user.getStatus().equals(UserStatus.Active)){
+			PlatformUtils.addError(response, UserServiceMessage.USER_NOT_ACTIVE);
 			return response;
 		}
 		Account account = accountRepository.findByUserAndAccountType(user, AccountType.Token);
