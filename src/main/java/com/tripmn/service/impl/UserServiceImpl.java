@@ -167,11 +167,11 @@ public class UserServiceImpl implements UserService {
 					validationCheck.setInvalid(true);
 					validationCheck.setErrorCode(UserServiceMessage.DUPLICATE_MOBILE_NUMBER.getCode());
 					validationCheck.setErroDescription(UserServiceMessage.DUPLICATE_MOBILE_NUMBER.getDescription());
-				}else if(userEmailObj!=null && !validationCheck.isInvalid()){
+				}else if(userNameObj!=null && !validationCheck.isInvalid()){
 					validationCheck.setInvalid(true);
 					validationCheck.setErrorCode(UserServiceMessage.DUPLICATE_USER_NAME.getCode());
 					validationCheck.setErroDescription(UserServiceMessage.DUPLICATE_USER_NAME.getDescription());
-				}else if(userNameObj!=null && !validationCheck.isInvalid()){
+				}else if(userEmailObj!=null && !validationCheck.isInvalid()){
 					validationCheck.setInvalid(true);
 					validationCheck.setErrorCode(UserServiceMessage.DUPLICATE_EMAIL.getCode());
 					validationCheck.setErroDescription(UserServiceMessage.DUPLICATE_EMAIL.getDescription());
